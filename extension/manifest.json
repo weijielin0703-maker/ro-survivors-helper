@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "RO Survivors 輔助器",
+  "version": "8.2",
+  "description": "RO Survivors 掛機輔助（by WJ）。不需要 Tampermonkey。",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ro-survivors.com/*"
+      ],
+      "js": [
+        "helper.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    }
+  ]
+}

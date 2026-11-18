@@ -73,6 +73,29 @@
     };
     if (document.body) show(); else document.addEventListener('DOMContentLoaded', show);
   }
+  // 擴充功能版：每天檢查一次 GitHub 上有沒有新版，有的話在右下角提示（擴充功能不會自己更新）
+  if (__EXT__) setTimeout(function () {
+    try {
+      var last = +(localStorage.getItem('roHelperExtCheck') || 0);
+      if (Date.now() - last < 6 * 3600 * 1000) { var nv = localStorage.getItem('roHelperExtNew'); if (nv && nv !== VER && newer(nv, VER)) banner(nv); return; }
+      fetch('https://raw.githubusercontent.com/weijielin0703-maker/ro-survivors-helper/main/ro-survivors-helper.user.js', { cache: 'no-store' })
+        .then(function (r) { return r.text(); })
+        .then(function (t) {
+          var m = t.match(/@version\s+(\S+)/); if (!m) return;
+          localStorage.setItem('roHelperExtCheck', String(Date.now())); localStorage.setItem('roHelperExtNew', m[1]);
+          if (newer(m[1], VER)) banner(m[1]);
+        }, function () {});
+    } catch (e) {}
+  }, 8000);
+  function newer(a, b) { a = a.split('.').map(Number); b = b.split('.').map(Number); for (var i = 0; i < Math.max(a.length, b.length); i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) > (b[i] || 0); } return false; }
+  function banner(v) {
+    if (document.getElementById('rh-ext-new')) return;
+    var d = document.createElement('div'); d.id = 'rh-ext-new';
+    d.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2147483647;background:#3b2a5a;color:#fff;padding:10px 14px;border-radius:10px;font:13px sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.4)';
+    d.innerHTML = '輔助器有新版 <b>v' + v + '</b>（目前 v' + VER + '）<br><a style="color:#ffd27a" target="_blank" href="https://github.com/weijielin0703-maker/ro-survivors-helper/raw/main/ro-helper-extension.zip">下載新版擴充功能</a>，解壓縮覆蓋舊資料夾後，到擴充功能頁按「重新載入」 <a href="#" style="color:#aaa;margin-left:8px">關閉</a>';
+    d.querySelector('a[href="#"]').onclick = function (e) { e.preventDefault(); d.remove(); };
+    (document.body || document.documentElement).appendChild(d);
+  }
   // 改版後（加密內容換了）用存著的密碼自動解開
   var saved = null;
   try { saved = localStorage.getItem(PK); } catch (e) {}

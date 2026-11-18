@@ -18,3 +18,10 @@ Tampermonkey 會自動檢查更新（約一天一次）；想立刻更新：管�
 
 原始碼不放在這裡。`RO_PASS=密碼 node build.js 原始碼.js` 產生加密的 `ro-survivors-helper.user.js`；
 `RO_PASS=密碼 node build.js --decrypt > 原始碼.js` 取回原始碼。
+
+## 不用 Tampermonkey：擴充功能版
+1. 下載 [ro-helper-extension.zip](https://github.com/weijielin0703-maker/ro-survivors-helper/raw/main/ro-helper-extension.zip)，解壓縮到一個固定的資料夾（之後不要刪）。
+2. 瀏覽器開 `chrome://extensions`（Brave：`brave://extensions`，Edge：`edge://extensions`），右上角打開「開發人員模式」。
+3. 按「載入未封裝項目」，選剛才解壓縮的資料夾。
+4. 若同時裝了 Tampermonkey 版，請把 Tampermonkey 裡的腳本停用，避免兩份一起跑。
+5. 有新版時遊戲右下角會提示；下載新 zip 覆蓋同一個資料夾，再到擴充功能頁按「重新載入」。

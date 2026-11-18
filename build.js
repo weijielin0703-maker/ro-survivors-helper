@@ -35,7 +35,19 @@ async function main() {
   const payload = Buffer.concat([Buffer.from(salt), Buffer.from(iv), Buffer.from(ct)]).toString('base64');
   const loader = fs.readFileSync(__dirname + '/loader.js', 'utf8')
     .replace('__VERSION__', version).replace('__ITER__', String(ITER)).replace('__PAYLOAD__', payload);
-  fs.writeFileSync(OUT, header + '\n' + loader);
+  fs.writeFileSync(OUT, header + '\n' + loader.replace('__EXT__', 'false'));
+  // 擴充功能版（不需要 Tampermonkey）：extension/ 資料夾＋ro-helper-extension.zip
+  const ext = __dirname + '/extension';
+  fs.mkdirSync(ext, { recursive: true });
+  fs.writeFileSync(ext + '/helper.js', loader.replace('__EXT__', 'true'));
+  fs.writeFileSync(ext + '/manifest.json', JSON.stringify({
+    manifest_version: 3,
+    name: 'RO Survivors 輔助器',
+    version: version,
+    description: 'RO Survivors 掛機輔助（by WJ）。不需要 Tampermonkey。',
+    content_scripts: [{ matches: ['https://ro-survivors.com/*'], js: ['helper.js'], run_at: 'document_start', world: 'MAIN', all_frames: false }]
+  }, null, 2));
+  require('child_process').execSync('rm -f ro-helper-extension.zip && cd extension && zip -q -r ../ro-helper-extension.zip manifest.json helper.js', { cwd: __dirname });
   console.error('built v' + version + ', ' + payload.length + ' bytes payload');
 }
 main().catch(e => { console.error(e.message); process.exit(1); });
