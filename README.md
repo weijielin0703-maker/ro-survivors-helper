@@ -1,7 +1,7 @@
 # RO Survivors 輔助器 by WJ
 
 HANS 私服（[ro.hans-webgametw.com](https://ro.hans-webgametw.com/)）的 Tampermonkey 掛機輔助腳本（9.0 起）。
-官服 ro-survivors.com 版停在 8.2，保留在標籤 [`official-v8.2`](https://github.com/weijielin0703-maker/ro-survivors-helper/tree/official-v8.2)。
+官服 ro-survivors.com 版停在 8.2，保留在 commit [`0b1012a`](https://github.com/weijielin0703-maker/ro-survivors-helper/tree/0b1012a)。
 
 **僅限作者 WJ 與朋友使用**：程式內容已加密，第一次使用要輸入密碼（向 WJ 索取）。
 
