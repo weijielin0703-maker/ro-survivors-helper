@@ -44,8 +44,8 @@ async function main() {
     manifest_version: 3,
     name: 'RO Survivors 輔助器',
     version: version,
-    description: 'RO Survivors 掛機輔助（by WJ）。不需要 Tampermonkey。',
-    content_scripts: [{ matches: ['https://ro-survivors.com/*'], js: ['helper.js'], run_at: 'document_start', world: 'MAIN', all_frames: false }]
+    description: 'RO Survivors 掛機輔助 HANS 私服版（by WJ）。不需要 Tampermonkey。',
+    content_scripts: [{ matches: ['https://ro.hans-webgametw.com/*'], js: ['helper.js'], run_at: 'document_start', world: 'MAIN', all_frames: false }]
   }, null, 2));
   require('child_process').execSync('rm -f ro-helper-extension.zip && cd extension && zip -q -r ../ro-helper-extension.zip manifest.json helper.js', { cwd: __dirname });
   console.error('built v' + version + ', ' + payload.length + ' bytes payload');
