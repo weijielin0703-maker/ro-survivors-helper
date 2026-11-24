@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "RO Survivors 輔助器",
-  "version": "10.53",
+  "version": "10.54",
   "description": "RO Survivors 掛機輔助 HANS 私服版（by WJ）。不需要 Tampermonkey。",
   "content_scripts": [
     {
